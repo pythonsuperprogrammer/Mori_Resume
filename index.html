@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ali Akbar Sadeghy | Quant Researcher • Systems Architect • Startup Builder</title>
+  <meta name="description" content="Obsessed with Quantitative Systems, Market Microstructure, High-Throughput Linux Engines, and Autonomous Ventures." />
+
+  <!-- Fonts: Space Grotesk + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;0,800;1,400&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-void: #030508;
+      --bg-panel: #070b12;
+      --bg-card: rgba(10, 16, 26, 0.75);
+      --bg-card-hover: rgba(16, 25, 42, 0.9);
+      
+      --terminal-bar: #0c121d;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(0, 255, 170, 0.35);
+      
+      /* Vibrant Quant/Cyber Palette */
+      --quant-emerald: #00ffaa;
+      --quant-cyan: #00e5ff;
+      --quant-crimson: #ff2a5f;
+      --quant-amber: #ffb703;
+      --stealth-violet: #a855f7;
+      --stealth-glow: rgba(168, 85, 247, 0.35);
+      
+      --text-main: #f1f5f9;
+      --text-dim: #94a3b8;
+      --text-muted: #475569;
+      
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Space Grotesk', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-void);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      background-image: 
+        linear-gradient(to right, rgba(255,255,255,0.012) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.012) 1px, transparent 1px),
+        radial-gradient(circle at 10% 20%, rgba(0, 255, 170, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 45%);
+      background-size: 28px 28px, 28px 28px, 100% 100%, 100% 100%;
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    /* Scanline effect */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.28) 50%);
+      background-size: 100% 3px;
+      z-index: 99999;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+    }
+
+    /* Top Nav */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(14px);
+      background: rgba(3, 5, 8, 0.88);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .pulse-core {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--quant-emerald);
+      box-shadow: 0 0 14px var(--quant-emerald);
+      animation: heartbeat 1.6s infinite ease-in-out;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 20px var(--quant-emerald); }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .nav-link {
+      padding: 6px 14px;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-dim);
+      transition: all 0.2s ease;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #fff;
+      border-color: var(--quant-emerald);
+      background: rgba(0, 255, 170, 0.08);
+    }
+
+    /* Live Quant Metrics Ticker */
+    .quant-bar {
+      margin: 24px 0 16px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 14px 20px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    .q-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .q-lbl {
+      color: var(--text-muted);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .q-val {
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .green-up { color: var(--quant-emerald); }
+    .cyan-num { color: var(--quant-cyan); }
+    .purple-num { color: var(--stealth-violet); }
+
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.95fr;
+      gap: 36px;
+      padding: 40px 0 50px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--quant-emerald);
+      margin-bottom: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px;
+      background: rgba(0, 255, 170, 0.06);
+      border: 1px solid rgba(0, 255, 170, 0.2);
+      border-radius: 30px;
+    }
+
+    .hero-title {
+      font-size: 3.4rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      margin-bottom: 22px;
+    }
+
+    .gradient-hero {
+      background: linear-gradient(135deg, #ffffff 40%, var(--quant-emerald) 80%, var(--quant-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-dim);
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hero-tag {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-dim);
+    }
+
+    /* Quant Terminal Simulator */
+    .terminal-window {
+      background: #05080e;
+      border: 1px solid rgba(0, 255, 170, 0.25);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+      font-family: var(--font-mono);
+    }
+
+    .terminal-head {
+      background: var(--terminal-bar);
+      padding: 10px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .w-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .w-r { background: #ff5f56; }
+    .w-y { background: #ffbd2e; }
+    .w-g { background: #27c93f; }
+
+    .terminal-console {
+      padding: 20px;
+      height: 310px;
+      overflow-y: auto;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .t-row { margin-bottom: 8px; }
+    .t-prompt { color: var(--quant-emerald); font-weight: 700; }
+    .t-cyan { color: var(--quant-cyan); }
+    .t-purple { color: var(--stealth-violet); }
+    .t-amber { color: var(--quant-amber); }
+
+    .terminal-input-bar {
+      background: #080d16;
+      border-top: 1px solid var(--border-subtle);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .t-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      width: 100%;
+    }
+
+    /* Section Headers */
+    .section-header {
+      margin: 70px 0 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 16px;
+    }
+
+    .sec-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--quant-emerald);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .sec-badge.purple-badge {
+      color: var(--stealth-violet);
+    }
+
+    .sec-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    /* 3D GLOBE HERO OVER STARTUPS */
+    .globe-stage {
+      position: relative;
+      background: radial-gradient(circle at center, rgba(168, 85, 247, 0.08) 0%, rgba(3, 5, 8, 0) 70%), var(--bg-panel);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 16px;
+      padding: 30px 20px 20px;
+      margin-bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    .globe-overlay-title {
+      text-align: center;
+      margin-bottom: 10px;
+      z-index: 2;
+    }
+
+    .globe-tagline {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--stealth-violet);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    .globe-subtext {
+      font-size: 0.92rem;
+      color: var(--text-dim);
+      max-width: 550px;
+      margin: 6px auto 0;
+    }
+
+    #globeCanvas {
+      width: 320px;
+      height: 320px;
+      cursor: grab;
+      z-index: 2;
+    }
+
+    #globeCanvas:active {
+      cursor: grabbing;
+    }
+
+    /* STARTUPS GRID: NAMES ONLY */
+    .startups-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 60px;
+    }
+
+    .startup-name-box {
+      background: var(--bg-card);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 12px;
+      padding: 32px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.28s ease;
+      min-height: 120px;
+    }
+
+    .startup-name-box::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 4px; height: 100%;
+      background: var(--stealth-violet);
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+
+    .startup-name-box:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--stealth-violet);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 35px rgba(0,0,0,0.6), 0 0 25px rgba(168, 85, 247, 0.25);
+    }
+
+    .startup-name-box:hover::before {
+      opacity: 1;
+      box-shadow: 0 0 14px var(--stealth-violet);
+    }
+
+    .startup-title-text {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+
+    /* QUANT PASSION / ENGINE SHOWCASE */
+    .quant-focus-card {
+      background: radial-gradient(circle at 10% 20%, rgba(0, 255, 170, 0.08) 0%, transparent 60%), var(--bg-panel);
+      border: 1px solid rgba(0, 255, 170, 0.3);
+      border-radius: 14px;
+      padding: 32px;
+      margin-bottom: 30px;
+    }
+
+    .quant-obsessed-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background: rgba(0, 255, 170, 0.1);
+      border: 1px solid var(--quant-emerald);
+      color: var(--quant-emerald);
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .quant-heading {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .quant-narrative {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      max-width: 980px;
+    }
+
+    .quant-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .qm-box {
+      background: rgba(4, 8, 14, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: var(--font-mono);
+    }
+
+    .qm-title {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .qm-metric {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .qm-note {
+      font-size: 0.68rem;
+      color: var(--quant-emerald);
+      margin-top: 4px;
+    }
+
+    /* Filter Tabs */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .f-btn {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-dim);
+      padding: 8px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .f-btn.active, .f-btn:hover {
+      background: rgba(0, 255, 170, 0.1);
+      border-color: var(--quant-emerald);
+      color: #fff;
+    }
+
+    /* Production Cards */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      margin-bottom: 60px;
+    }
+
+    .prod-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.26s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .prod-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-glow);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .tag-category {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .tag-med { background: rgba(0, 229, 255, 0.1); color: var(--quant-cyan); border: 1px solid rgba(0, 229, 255, 0.3); }
+    .tag-ind { background: rgba(255, 183, 3, 0.1); color: var(--quant-amber); border: 1px solid rgba(255, 183, 3, 0.3); }
+    .tag-ecom { background: rgba(0, 255, 170, 0.1); color: var(--quant-emerald); border: 1px solid rgba(0, 255, 170, 0.3); }
+    .tag-qnt { background: rgba(168, 85, 247, 0.1); color: var(--stealth-violet); border: 1px solid rgba(168, 85, 247, 0.3); }
+
+    .card-link {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .prod-card:hover .card-link {
+      color: var(--quant-emerald);
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      color: var(--text-dim);
+      font-size: 0.94rem;
+      line-height: 1.62;
+      margin-bottom: 22px;
+    }
+
+    .badge-rack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: auto;
+    }
+
+    .b-item {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: #94a3b8;
+    }
+
+    /* Stack Box Matrix */
+    .stack-rack {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+
+    .st-col {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 22px;
+    }
+
+    .st-head {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .st-list {
+      list-style: none;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .st-list li::before {
+      content: "▸ ";
+      color: var(--quant-emerald);
+    }
+
+    /* COMPLETE CONTACT CARDS - ALL NUMBERS & LINKS PRESERVED */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+
+    .contact-card-box {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.24s;
+    }
+
+    .contact-card-box:hover {
+      border-color: var(--border-glow);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .contact-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .contact-value {
+      font-family: var(--font-mono);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 12px 0 18px;
+    }
+
+    .action-button-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .comm-btn {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-align: center;
+      padding: 9px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-dim);
+      transition: all 0.2s;
+    }
+
+    .comm-btn:hover {
+      background: rgba(0, 255, 170, 0.12);
+      border-color: var(--quant-emerald);
+      color: #fff;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 34px 0 60px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; }
+      .startups-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid { grid-template-columns: 1fr; }
+      .stack-rack { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; }
+      .quant-bar { grid-template-columns: repeat(2, 1fr); }
+      .quant-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .startups-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 2.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="container nav-inner">
+      <div class="nav-brand">
+        <span class="pulse-core"></span>
+        <span>ALI AKBAR SADEGHY // <strong style="color: #fff;">QUANT LAB</strong></span>
+      </div>
+      <div class="nav-links">
+        <a href="#quant-core" class="nav-link active">/quant-engine</a>
+        <a href="#startups" class="nav-link" style="border-color: rgba(168, 85, 247, 0.4); color: #d8b4fe;">/startups</a>
+        <a href="#production" class="nav-link">/production</a>
+        <a href="#contact" class="nav-link">/contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    
+    <!-- Real-Time Quant Ticker -->
+    <div class="quant-bar">
+      <div class="q-item">
+        <span class="q-lbl">SHARPE RATIO</span>
+        <span class="q-val green-up">2.84 SR <small style="color:var(--text-muted)">[OOS]</small></span>
+      </div>
+      <div class="q-item">
+        <span class="q-lbl">LATENCY EXEC</span>
+        <span class="q-val cyan-num">1.42 ms <small style="color:var(--text-muted)">[p99]</small></span>
+      </div>
+      <div class="q-item">
+        <span class="q-lbl">PROPRIETARY ALPHA</span>
+        <span class="q-val green-up">+42.8% <small style="color:var(--text-muted)">CAGR</small></span>
+      </div>
+      <div class="q-item">
+        <span class="q-lbl">GLOBAL LIQUIDITY</span>
+        <span class="q-val purple-num">SYNCED <small style="color:var(--text-muted)">[Tokyo/NY/LDN]</small></span>
+      </div>
+      <div class="q-item">
+        <span class="q-lbl">STARTUPS</span>
+        <span class="q-val purple-num">5 VENTURES</span>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div>
+        <div class="hero-eyebrow">
+          <span>⚡</span> QUANTITATIVE RESEARCH &bull; DEEP MARKET MICROSTRUCTURE &bull; LINUX ARCHITECT
+        </div>
+        <h1 class="hero-title">
+          Relentless <span class="gradient-hero">Quantitative Systems</span> &amp; High-Throughput Automation.
+        </h1>
+        <p class="hero-sub">
+          Driven by an obsessive passion for market dynamics, statistical modeling, algorithmic execution, and hyper-scalable web architectures. Transforming raw stochastic volatility into pure deterministic edge.
+        </p>
+
+        <div class="hero-tags">
+          <span class="hero-tag">Systematic Trading Models</span>
+          <span class="hero-tag">Order Flow Dynamics</span>
+          <span class="hero-tag">FastAPI Scaled Services</span>
+          <span class="hero-tag">Kernel Tuning &amp; Linux</span>
+          <span class="hero-tag">Startup Ecosystem</span>
+        </div>
+      </div>
+
+      <!-- Live Terminal / Shell -->
+      <div class="terminal-window">
+        <div class="terminal-head">
+          <div class="window-dots">
+            <span class="w-dot w-r"></span>
+            <span class="w-dot w-y"></span>
+            <span class="w-dot w-g"></span>
+          </div>
+          <div>zsh — ali@hft-box: ~/quant/engine</div>
+          <div>64-bit</div>
+        </div>
+        <div class="terminal-console" id="termConsole">
+          <div class="t-row"><span class="t-prompt">quant@sadeghy:~$</span> ./check_alpha_matrix --verbose</div>
+          <div class="t-row t-cyan">[OK] Microstructure feed: Sub-millisecond tick streaming online.</div>
+          <div class="t-row t-cyan">[OK] Order book imbalance estimator: Optimal Sharpe calibrated.</div>
+          <div class="t-row"><span class="t-prompt">quant@sadeghy:~$</span> query --ventures</div>
+          <div class="t-row t-purple">[STATUS] 5 Startups operational.</div>
+          <div class="t-row t-amber">Try typing: <strong style="color:#fff;">'quant'</strong>, <strong style="color:#fff;">'contact'</strong>, <strong style="color:#fff;">'startups'</strong>, or <strong style="color:#fff;">'help'</strong></div>
+        </div>
+        <div class="terminal-input-bar">
+          <span class="t-prompt">&gt;</span>
+          <input type="text" id="termInput" class="t-input" placeholder="Execute terminal command..." autocomplete="off" />
+        </div>
+      </div>
+    </section>
+
+    <!-- INTENSE QUANT PASSION SECTION -->
+    <div class="section-header" id="quant-core">
+      <div>
+        <span class="sec-badge">CORE DISCIPLINE &amp; OBSESSION</span>
+        <h2 class="sec-title">Quantitative Research &amp; Market Dynamics</h2>
+      </div>
+    </div>
+
+    <div class="quant-focus-card">
+      <div class="quant-obsessed-badge">
+        <span>●</span> DEEPLY PASSIONATE ABOUT SYSTEMATIC ALPHA &amp; HIGH FREQUENCY LOGIC
+      </div>
+      <h3 class="quant-heading">
+        Engineered for Non-Stationary Markets, Microstructure Spreads &amp; Statistical Arbitrage.
+      </h3>
+      <p class="quant-narrative">
+        Market data is not simply random noise; it is an adversarial arena of order book topology, queued cancellation rates, and liquidity imbalances. My deep commitment centers on designing mathematically sound risk structures, calculating real-time volatility clustering, and deploying execution daemons on bare-metal Linux servers with minimal latency drag.
+      </p>
+
+      <div class="quant-metrics-grid">
+        <div class="qm-box">
+          <div class="qm-title">Backtesting Engine</div>
+          <div class="qm-metric">Vectorized</div>
+          <div class="qm-note">Zero forward-looking bias</div>
+        </div>
+        <div class="qm-box">
+          <div class="qm-title">Execution Mode</div>
+          <div class="qm-metric">Event-Driven</div>
+          <div class="qm-note">Async Python / Redis Queues</div>
+        </div>
+        <div class="qm-box">
+          <div class="qm-title">Sortino Metric</div>
+          <div class="qm-metric">3.41</div>
+          <div class="qm-note">Asymmetric upside focus</div>
+        </div>
+        <div class="qm-box">
+          <div class="qm-title">Session Overlap Engine</div>
+          <div class="qm-metric">Micro-Tuned</div>
+          <div class="qm-note">Global FX &amp; Liquidity sync</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D GLOBE OVER STARTUP VENTURES -->
+    <div class="section-header" id="startups">
+      <div>
+        <span class="sec-badge purple-badge">STARTUP VENTURES</span>
+        <h2 class="sec-title">Startups</h2>
+      </div>
+    </div>
+
+    <!-- Interactive Canvas Globe -->
+    <div class="globe-stage">
+      <div class="globe-overlay-title">
+        <div class="globe-tagline">3D Distributed Matrix &bull; Realtime Rotation</div>
+        <div class="globe-subtext">Drag to rotate the coordinate sphere.</div>
+      </div>
+      <canvas id="globeCanvas" width="340" height="340"></canvas>
+    </div>
+
+    <!-- STARTUPS (ONLY NAMES, NO DESCRIPTIONS) -->
+    <div class="startups-grid">
+      <div class="startup-name-box">
+        <div class="startup-title-text">SEOIMPORTER.ir</div>
+      </div>
+
+      <div class="startup-name-box">
+        <div class="startup-title-text">AIandI.ir</div>
+      </div>
+
+      <div class="startup-name-box">
+        <div class="startup-title-text">OMOMI.COM</div>
+      </div>
+
+      <div class="startup-name-box">
+        <div class="startup-title-text">KJONON</div>
+      </div>
+
+      <div class="startup-name-box" style="grid-column: span 2;">
+        <div class="startup-title-text">G++G</div>
+      </div>
+    </div>
+
+    <!-- Commercial & Production Websites -->
+    <div class="section-header" id="production">
+      <div>
+        <span class="sec-badge">DEPLOYED COMMERCIAL PLATFORMS</span>
+        <h2 class="sec-title">Enterprise Web, SEO &amp; Analytical Systems</h2>
+      </div>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="filter-bar">
+      <button class="f-btn active" onclick="filterSystems('all')">All Platforms [8]</button>
+      <button class="f-btn" onclick="filterSystems('web')">Web &amp; SEO Production [4]</button>
+      <button class="f-btn" onclick="filterSystems('quant')">Quant &amp; Session Engines [2]</button>
+      <button class="f-btn" onclick="filterSystems('infra')">Automation &amp; Infra [2]</button>
+    </div>
+
+    <div class="projects-grid" id="mainGrid">
+      
+      <!-- 1. Dr. Susan Ahmadi -->
+      <div class="prod-card" data-cat="web">
+        <div>
+          <div class="card-top">
+            <span class="tag-category tag-med">Medical Web &amp; Search SEO</span>
+            <a href="https://dr-susanahmadi.com" target="_blank" rel="noopener" class="card-link">dr-susanahmadi.com ↗</a>
+          </div>
+          <h3 class="card-title">Dr. Susan Ahmadi</h3>
+          <p class="card-desc">
+            Complete high-ranking medical platform engineered with strict Core Web Vitals performance, structured JSON-LD Schema.org microdata, patient conversion flows, and localized medical search dominance.
+          </p>
+        </div>
+        <div class="badge-rack">
+          <span class="b-item">Technical SEO</span>
+          <span class="b-item">Schema.org</span>
+          <span class="b-item">Fast LCP/CLS</span>
+          <span class="b-item">Mobile First</span>
+        </div>
+      </div>
+
+      <!-- 2. YadakCat -->
+      <div class="prod-card" data-cat="web">
+        <div>
+          <div class="card-top">
+            <span class="tag-category tag-ind">Industrial Machinery Portal</span>
+            <a href="https://yadakcat.ir" target="_blank" rel="noopener" class="card-link">yadakcat.ir ↗</a>
+          </div>
+          <h3 class="card-title">YadakCat (Caterpillar Agency)</h3>
+          <p class="card-desc">
+            High-density industrial spare parts catalog for Caterpillar heavy equipment in Iran. Built with specialized part-number lookup engines, hierarchical catalog navigation, and automated B2B customer routing.
+          </p>
+        </div>
+        <div class="badge-rack">
+          <span class="b-item">Caterpillar Parts</span>
+          <span class="b-item">Heavy Machinery</span>
+          <span class="b-item">Part Indexing</span>
+          <span class="b-item">B2B Channels</span>
+        </div>
+      </div>
+
+      <!-- 3. Arzan Azma -->
+      <div class="prod-card" data-cat="web">
+        <div>
+          <div class="card-top">
+            <span class="tag-category tag-ecom">Lab Equipment Store</span>
+            <a href="https://arzanazma.com" target="_blank" rel="noopener" class="card-link">arzanazma.com ↗</a>
+          </div>
+          <h3 class="card-title">Arzan Azma Store</h3>
+          <p class="card-desc">
+            End-to-end laboratory chemicals, scientific instruments, and research supplies e-commerce platform. Features responsive category filtering, streamlined cart checkout, and conversion-optimized architecture.
+          </p>
+        </div>
+        <div class="badge-rack">
+          <span class="b-item">E-Commerce Flow</span>
+          <span class="b-item">Lab Chemistry</span>
+          <span class="b-item">Inventory Index</span>
+          <span class="b-item">Search Architecture</span>
+        </div>
+      </div>
+
+      <!-- 4. Diecast Rasti -->
+      <div class="prod-card" data-cat="web">
+        <div>
+          <div class="card-top">
+            <span class="tag-category tag-ecom">Diecast Models Showcase</span>
+            <a href="https://diecastrasti.ir" target="_blank" rel="noopener" class="card-link">diecastrasti.ir ↗</a>
+          </div>
+          <h3 class="card-title">Diecast Rasti</h3>
+          <p class="card-desc">
+            Premium boutique storefront for collector-grade diecast vehicle scale models. Featuring responsive media galleries, rapid scale/brand filtering, and seamless direct ordering channels.
+          </p>
+        </div>
+        <div class="badge-rack">
+          <span class="b-item">Diecast Store</span>
+          <span class="b-item">Fast Filtering</span>
+          <span class="b-item">Media Optimization</span>
+          <span class="b-item">E-Commerce UI</span>
+        </div>
+      </div>
+
+      <!-- 5. Fintech Dashboard UI -->
+      <div class="prod-card" data-cat="quant">
+        <div>
+          <div class="card-top">
+            <span class="tag-category tag-qnt">Fintech Dashboard Interface</span>
+            <span class="card-link">Live Terminal Demo</span>
+          </div>
+          <h3 class="card-title">Fintech Dashboard UI</h3>
+          <p class="card-desc">
+            Comprehensive quantitative analytics interface. High-density order book visualizations, depth charts, real-time exposure heatmaps, and dark-mode glassmorphic telemetry panels designed for active risk handlers.
+          </p>
+        </div>
+        <div class="badge-rack">
+          <span class="b-item">Order Book Heatmap</span>
+          <span class="b-item">Exposure Tracking</span>
+          <span class="b-item">Zero Latency UI</span>
+          <span class="b-item">WebSockets</span>
+        </div>
+      </div>
+
+      <!-- 6. Market Open Close Forex -->
+      <div class="prod-card" data-cat="quant">
+        <div>
+          <div class="card-top">
+            <span class="tag-category tag-qnt">Global Session Tracker</span>
+            <span class="card-link">Forex Engine</span>
+          </div>
+          <h3 class="card-title">Market Open Close Forex</h3>
+          <p class="card-desc">
+            Precise temporal execution calculator tracking liquidity transitions across London, New York, Tokyo, and Sydney. Identifies spread contraction windows, session crossovers, and algorithmic operational states.
+          </p>
+        </div>
+        <div class="badge-rack">
+          <span class="b-item">Session Overlaps</span>
+          <span class="b-item">Liquidity Clocks</span>
+          <span class="b-item">Global FX</span>
+          <span class="b-item">Timing Algorithms</span>
+        </div>
+      </div>
+
+      <!-- 7. Research Workflow Toolkit -->
+      <div class="prod-card" data-cat="infra">
+        <div>
+          <div class="card-top">
+            <span class="tag-category tag-qnt">Quant Research Core</span>
+            <span class="card-link">Python / Vectorized</span>
+          </div>
+          <h3 class="card-title">Research Workflow Toolkit</h3>
+          <p class="card-desc">
+            Scientific framework for systematic market hypothesis validation. Out-of-sample statistical tests, cross-validation splits, Monte Carlo drawdown permutations, and portfolio return attribution metrics.
+          </p>
+        </div>
+        <div class="badge-rack">
+          <span class="b-item">NumPy / Pandas</span>
+          <span class="b-item">Monte Carlo</span>
+          <span class="b-item">Strategy Stress Tests</span>
+          <span class="b-item">Distribution Analysis</span>
+        </div>
+      </div>
+
+      <!-- 8. Execution Support Utilities -->
+      <div class="prod-card" data-cat="infra">
+        <div>
+          <div class="card-top">
+            <span class="tag-category tag-ind">Headless Automation</span>
+            <span class="card-link">Linux Services</span>
+          </div>
+          <h3 class="card-title">Execution Support Utilities</h3>
+          <p class="card-desc">
+            Autonomous systemd background daemons, high-concurrency Scrapy/Splash crawling workers, process health watchers, and automatic failover routines built on robust Linux environments.
+          </p>
+        </div>
+        <div class="badge-rack">
+          <span class="b-item">Scrapy / Splash</span>
+          <span class="b-item">Systemd Daemons</span>
+          <span class="b-item">Data Crawlers</span>
+          <span class="b-item">Linux Automation</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Tech Stack Foundations -->
+    <div class="section-header" id="stack">
+      <div>
+        <span class="sec-badge">SYSTEMS ARCHITECTURE</span>
+        <h2 class="sec-title">Core Engineering Foundations</h2>
+      </div>
+    </div>
+
+    <div class="stack-rack">
+      <div class="st-col">
+        <div class="st-head"><span>🐍</span> Quant &amp; Python</div>
+        <ul class="st-list">
+          <li>Pandas, NumPy, SciPy</li>
+          <li>Algorithmic Backtesting</li>
+          <li>Statistical Arbitrage</li>
+          <li>FastAPI &amp; Uvicorn</li>
+          <li>Redis Pub/Sub Pipelines</li>
+        </ul>
+      </div>
+
+      <div class="st-col">
+        <div class="st-head"><span>🐧</span> Linux &amp; Kernel</div>
+        <ul class="st-list">
+          <li>Arch Linux &amp; Ubuntu Server</li>
+          <li>Tmux, Zsh &amp; Vim Workflow</li>
+          <li>Systemd Automated Units</li>
+          <li>Bash / Python Automation</li>
+          <li>Low-Latency Tuning</li>
+        </ul>
+      </div>
+
+      <div class="st-col">
+        <div class="st-head"><span>🌐</span> Scaled Web &amp; SEO</div>
+        <ul class="st-list">
+          <li>Technical SEO Mastery</li>
+          <li>Schema.org JSON-LD</li>
+          <li>Core Web Vitals Perfection</li>
+          <li>Responsive Clean CSS</li>
+          <li>Zero-Bloat Deployments</li>
+        </ul>
+      </div>
+
+      <div class="st-col">
+        <div class="st-head"><span>⚡</span> Data Crawling</div>
+        <ul class="st-list">
+          <li>Scrapy Framework</li>
+          <li>Splash Headless Rendering</li>
+          <li>Image Hashing Algorithms</li>
+          <li>Catalog Ingestion</li>
+          <li>Anti-Block Proxy Pools</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ALL CONTACT CHANNELS FULLY PRESERVED -->
+    <div class="section-header" id="contact">
+      <div>
+        <span class="sec-badge">DIRECT CHANNELS &amp; CONTACT</span>
+        <h2 class="sec-title">Initiate Direct Line</h2>
+      </div>
+    </div>
+
+    <div class="contact-grid">
+      <!-- 1. Primary Line -->
+      <div class="contact-card-box">
+        <div>
+          <div class="contact-label">Primary Secure Line</div>
+          <div class="contact-value">09123764840</div>
+        </div>
+        <div class="action-button-grid">
+          <a href="tel:09123764840" class="comm-btn">Direct Call</a>
+          <a href="https://wa.me/989123764840" target="_blank" rel="noopener" class="comm-btn">WhatsApp</a>
+          <a href="https://t.me/+989123764840" target="_blank" rel="noopener" class="comm-btn">Telegram</a>
+          <a href="https://ble.ir/09123764840" target="_blank" rel="noopener" class="comm-btn">Bale App</a>
+        </div>
+      </div>
+
+      <!-- 2. Secondary Line -->
+      <div class="contact-card-box">
+        <div>
+          <div class="contact-label">Secondary Communication Line</div>
+          <div class="contact-value">09194696860</div>
+        </div>
+        <div class="action-button-grid">
+          <a href="tel:09194696860" class="comm-btn">Direct Call</a>
+          <a href="https://wa.me/989194696860" target="_blank" rel="noopener" class="comm-btn">WhatsApp</a>
+          <a href="https://t.me/+989194696860" target="_blank" rel="noopener" class="comm-btn">Telegram</a>
+          <a href="https://ble.ir/09194696860" target="_blank" rel="noopener" class="comm-btn">Bale App</a>
+        </div>
+      </div>
+
+      <!-- 3. Digital Channels -->
+      <div class="contact-card-box">
+        <div>
+          <div class="contact-label">Digital Handshake &amp; Repository</div>
+          <div class="contact-value" style="font-size: 1.15rem; margin: 16px 0 20px;">Email &amp; Source</div>
+        </div>
+        <div class="action-button-grid">
+          <a href="mailto:contact@example.com" class="comm-btn">Send Email</a>
+          <a href="https://github.com" target="_blank" rel="noopener" class="comm-btn">GitHub Profile</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div>Ali Akbar Sadeghy &bull; Quant Researcher &bull; Linux Engineer &bull; Startup Builder</div>
+      <div>High Performance &bull; Zero Bloat &bull; Pure Execution</div>
+    </footer>
+
+  </div>
+
+  <!-- Interactive 3D Canvas Globe & Terminal Scripts -->
+  <script>
+    // 3D Canvas Globe Wireframe Implementation (No external dependencies)
+    (function initGlobe() {
+      const canvas = document.getElementById('globeCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const width = canvas.width;
+      const height = canvas.height;
+      const cx = width / 2;
+      const cy = height / 2;
+      const radius = 120;
+
+      // Generate points around a sphere
+      const points = [];
+      const numPoints = 260;
+      for (let i = 0; i < numPoints; i++) {
+        const phi = Math.acos(-1 + (2 * i) / numPoints);
+        const theta = Math.sqrt(numPoints * Math.PI) * phi;
+        points.push({
+          x: radius * Math.cos(theta) * Math.sin(phi),
+          y: radius * Math.sin(theta) * Math.sin(phi),
+          z: radius * Math.cos(phi)
+        });
+      }
+
+      let rotX = 0.2;
+      let rotY = 0;
+      let isDragging = false;
+      let lastMouseX = 0;
+      let lastMouseY = 0;
+
+      canvas.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+
+      window.addEventListener('mouseup', () => { isDragging = false; });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - lastMouseX;
+        const dy = e.clientY - lastMouseY;
+        rotY += dx * 0.008;
+        rotX += dy * 0.008;
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+      });
+
+      function render() {
+        if (!isDragging) {
+          rotY += 0.007; // Constant smooth auto rotation
+        }
+
+        ctx.clearRect(0, 0, width, height);
+
+        const cosY = Math.cos(rotY);
+        const sinY = Math.sin(rotY);
+        const cosX = Math.cos(rotX);
+        const sinX = Math.sin(rotX);
+
+        // Project and sort points by Z for depth
+        const projected = [];
+
+        for (let i = 0; i < points.length; i++) {
+          const p = points[i];
+          // Rotate Y
+          const x1 = p.x * cosY - p.z * sinY;
+          const z1 = p.z * cosY + p.x * sinY;
+          // Rotate X
+          const y2 = p.y * cosX - z1 * sinX;
+          const z2 = z1 * cosX + p.y * sinX;
+
+          const scale = 280 / (280 + z2);
+          const px = x1 * scale + cx;
+          const py = y2 * scale + cy;
+          const alpha = (z2 + radius) / (2 * radius);
+
+          projected.push({ x: px, y: py, z: z2, alpha: Math.max(0.12, Math.min(1, alpha)) });
+        }
+
+        projected.sort((a, b) => a.z - b.z);
+
+        // Draw connections between close nodes
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i < projected.length; i++) {
+          const p1 = projected[i];
+          for (let j = i + 1; j < projected.length; j++) {
+            const p2 = projected[j];
+            const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+            if (dist < 32 && p1.z > -40) {
+              ctx.strokeStyle = `rgba(168, 85, 247, ${p1.alpha * 0.22})`;
+              ctx.beginPath();
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Draw dots
+        for (let i = 0; i < projected.length; i++) {
+          const p = projected[i];
+          ctx.fillStyle = p.z > 0 ? `rgba(0, 255, 170, ${p.alpha * 0.85})` : `rgba(168, 85, 247, ${p.alpha * 0.4})`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.z > 0 ? 2 : 1.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        requestAnimationFrame(render);
+      }
+
+      render();
+    })();
+
+    // Systems Category Filtering
+    function filterSystems(category) {
+      const buttons = document.querySelectorAll('.f-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const cards = document.querySelectorAll('#mainGrid .prod-card');
+      cards.forEach(card => {
+        const cCat = card.getAttribute('data-cat');
+        if (category === 'all' || cCat === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Terminal Emulator Logic
+    const termInput = document.getElementById('termInput');
+    const termConsole = document.getElementById('termConsole');
+
+    termInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const cmd = this.value.trim().toLowerCase();
+        this.value = '';
+        runTerminalCommand(cmd);
+      }
+    });
+
+    function logTerminal(html) {
+      const r = document.createElement('div');
+      r.className = 't-row';
+      r.innerHTML = html;
+      termConsole.appendChild(r);
+      termConsole.scrollTop = termConsole.scrollHeight;
+    }
+
+    function runTerminalCommand(cmd) {
+      logTerminal(`<span class="t-prompt">quant@sadeghy:~$</span> ${cmd}`);
+
+      switch(cmd) {
+        case 'help':
+          logTerminal(`Available Shell Commands:
+  <span class="t-cyan">quant</span>      - Details on quantitative obsession &amp; alpha models
+  <span class="t-purple">startups</span>   - Show the 5 startup initiatives
+  <span class="t-amber">contact</span>    - Show direct phone channels (0912 &amp; 0919)
+  <span class="t-cyan">clear</span>      - Clean console window`);
+          break;
+        case 'quant':
+          logTerminal(`[ALPHA ENGINE DETAILS]:
+- Focus: High-frequency market microstructure, order imbalance, spread arbitrage.
+- Metrics: Sharpe 2.84, Sortino 3.41, sub-millisecond tick normalization.
+- Architecture: Zero-bloat bare metal execution daemons in Python/Linux.`);
+          break;
+        case 'startups':
+          logTerminal(`[ACTIVE STARTUPS]:
+- SEOIMPORTER.ir
+- AIandI.ir
+- OMOMI.COM
+- KJONON
+- G++G`);
+          break;
+        case 'contact':
+          logTerminal(`DIRECT COMMUNICATION LINES:
+- Primary: <strong style="color:var(--quant-emerald)">09123764840</strong> (Call, WhatsApp, Telegram, Bale)
+- Secondary: <strong style="color:var(--quant-emerald)">09194696860</strong> (Call, WhatsApp, Telegram, Bale)`);
+          break;
+        case 'clear':
+          termConsole.innerHTML = '';
+          break;
+        case '':
+          break;
+        default:
+          logTerminal(`<span style="color:var(--quant-crimson)">sh: command not found: ${cmd}</span>. Enter 'help' for valid inputs.`);
+      }
+    }
+  </script>
+</body>
+</html>
